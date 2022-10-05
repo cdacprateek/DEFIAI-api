@@ -485,10 +485,12 @@ namespace Newtonsoft.Json
     internal static bool IsJsonPrimitiveType(Type type)
     {
       if (ReflectionUtils.IsNullableType(type))
-        type = Nullable.GetUnderlyingType(type);
+            {
+                type = Nullable.GetUnderlyingType(type);
+            }
 
 #if !PocketPC && !NET20
-     if (type == typeof(DateTimeOffset))
+            if (type == typeof(DateTimeOffset))
         return true;
 #endif
       if (type == typeof(byte[]))
@@ -579,7 +581,7 @@ namespace Newtonsoft.Json
     /// A JSON string representation of the object.
     /// </returns>
     public static string SerializeObject(object value, Formatting formatting, JsonSerializerSettings settings)
-    {
+        {
       JsonSerializer jsonSerializer = JsonSerializer.Create(settings);
 
       StringBuilder sb = new StringBuilder(128);

@@ -26,6 +26,8 @@ using System.Xml;
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
 // [System.Web.Script.Services.ScriptService]
+//Do9234iwenas#$!@1*s9 -TOKEN
+
 public class authentication : System.Web.Services.WebService {
     Connectioncls ConCls = new Connectioncls();
     string ErrCode = "";

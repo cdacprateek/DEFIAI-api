@@ -94,14 +94,7 @@ public class Connectioncls
     #endregion
 
 
-    #region loginuser
-    public int UserLogin(string Email, string Cust_Password, string tokenno, out string message, out string ErrCode)
-    {
-        return objClsDataccess.UserLogin( Email,  Cust_Password,  tokenno, out  message, out  ErrCode);
-    }
 
-
-    #endregion
 
     #region wallet_services
 
@@ -375,11 +368,46 @@ public class Connectioncls
 
     #region userRegistration
 
-    public int UserRegistration(int serialno, int CusID, float Cust_SponserID, string Cust_Location, DateTime Entry_Date, string Cust_Name, string Email, string Cust_Country, Int64 Cust_mobileNo, string Cust_Password, string Cust_Package, int Approved, int Pin_Approved, int plannerId, int totaldir, string tokenno)
+    public int UserRegistration(int serialno, int CusID, int Cust_SponserID, string Cust_Location, DateTime Entry_Date, string Cust_Name, string Email, string Cust_Country, Int64 Cust_mobileNo, string Cust_Password, string Cust_Package, int Approved, int Pin_Approved, int plannerId, int totaldir, string tokenno)
     {
         return objClsDataccess.userRegistration(serialno, CusID, Cust_SponserID, Cust_Location, Entry_Date, Cust_Name, Email, Cust_Country, Cust_mobileNo, Cust_Password, Cust_Package, Approved, Pin_Approved, plannerId, totaldir, tokenno);
-
+            
     }
+    #endregion
+
+
+    //#region loginuser
+
+    //public int loginuser(string CusID, string Email, string Cust_Password,string tokenno, string result, int code)
+    //{
+    //    return objClsDataccess.loginuser(CusID,Email, Cust_Password, tokenno, result,code);
+    //}
+
+    #region verification_byregistration
+
+    public int verification_byregistration(string cusid, out int flag, out string errMsg)
+    {
+        return objClsDataccess.verification_byregistration(cusid, out flag, out errMsg);
+    }
+
+    #endregion
+
+    #region LOGWebApi
+
+    public int LOGWebApi(string CusID, string tokenno, string servicecall, string APITitle, out string flag, out string message1, out string ErrCode1)
+    {
+        return objClsDataccess.LOGWebApi(CusID, tokenno, servicecall, APITitle, out flag, out message1, out ErrCode1);
+    }
+    #endregion
+
+    #region Preinserrtnewcustrecords
+
+    public int inserrtnewcustrecords(string Cust_SponserID, string Email, string Cust_Address, string Cust_Answer, string Cust_Question, string Cust_City, string Cust_State, string Cust_Country, string Cust_Password, string Cust_Title, string Cust_Name, string Cust_Gender, string Cust_FatherName, string Cust_DOB, string Cust_Pincode, string Cust_mobileNo, string Cust_nominee, string Cust_Relation, string Cust_Package, string Cust_Location, string Cust_TempPinID, int PayMode, string Cust_BankName, string Cust_BankAcc, string Cust_BankIFSC, string Cust_BankBranch, string Cust_PanID, string _custusername, string _SkypeID, out string NewID, out string ErrCode)
+    {
+        int i = objClsDataccess.InsertCustRecords(Cust_SponserID, Email, Cust_Address, Cust_Answer, Cust_Question, Cust_City, Cust_State, Cust_Country, Cust_Password, Cust_Title, Cust_Name, Cust_Gender, Cust_FatherName, Cust_DOB, Cust_Pincode, Cust_mobileNo, Cust_nominee, Cust_Relation, Cust_Package, Cust_Location, Cust_TempPinID, PayMode, Cust_BankName, Cust_BankAcc, Cust_BankIFSC, Cust_BankBranch, Cust_PanID, _custusername, _SkypeID, out NewID, out ErrCode);
+        return i;
+    }
+
     #endregion
 
 }

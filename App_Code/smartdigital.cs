@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
@@ -25,13 +26,18 @@ public class smartdigital : System.Web.Services.WebService
     public smartdigital()
     {
 
-        //Uncomment the following line if using designed components 
+        //Uncomment the following line if using designed components- TOkenno-Do9234iwenas#$!@1*s9 
+
         //InitializeComponent(); 
     }
 
     private string ErrCode = "";
     private string NewID;
     private readonly string CusID;
+    private readonly object tokenno;
+    public string ConnectionString1 = "";
+
+    public string message1 { get; private set; }
 
     [WebMethod]
     public void APKVersion(string version)
@@ -299,7 +305,7 @@ public class smartdigital : System.Web.Services.WebService
                             dt.TableName = "pin_Wallet";
                             sda.Fill(dt);
                             string json = JsonConvert.SerializeObject(dt);
-    //                        return dt;
+                            //                        return dt;
 
                             dynamic jsonResponse = JsonConvert.DeserializeObject(json);
 
@@ -1080,7 +1086,7 @@ public class smartdigital : System.Web.Services.WebService
                             dt.TableName = "DATACARD_OPERATOR_DETAILS";
                             sda.Fill(dt);
 
-                            var json = JsonConvert.SerializeObject(dt);
+                            string json = JsonConvert.SerializeObject(dt);
                             //return dt;
 
                             dynamic jsonResponse = JsonConvert.DeserializeObject(json);
@@ -1110,7 +1116,7 @@ public class smartdigital : System.Web.Services.WebService
         {
             JObject jd = new JObject();
             jd.Add("result", "");
-            var val = jd;
+            JObject val = jd;
             string option = (string)val["result"];
             string JsonString = "";
 
@@ -1926,261 +1932,261 @@ public class smartdigital : System.Web.Services.WebService
 
 
 
-    ////Data Card recharge
-    //[WebMethod]
-    //public void data_card_api(string CusID, string mobile_no, string operator_name, string circle_id, string amount2, string balance)
-    //{
+    //Data Card recharge
+    [WebMethod]
+    public void data_card_api(string CusID, string mobile_no, string operator_name, string circle_id, string amount2, string balance)
+    {
 
-    //    if (CusID == "" || mobile_no == "" || operator_name == "" || circle_id == "" || amount2 == "" || balance == "")
-    //    {
-    //        Service_Stop service = new Service_Stop();
-    //        service.result = "false";
-    //        service.message = "Please enter all fields";
-
-
-    //        string json = JsonConvert.SerializeObject(service);
-    //        this.Context.Response.Write(json);
-
-    //    }
-    //    else
-    //    {
-
-    //            try
-    //            {
-
-    //                SqlDataReader sdr3 = ConCls.GetdataReader("SELECT * FROM Config WHERE Permission=0 AND PageName='mobilerechargepost'");
-    //                if (sdr3.HasRows)
-    //                {
-
-    //                    if (sdr3.Read())
-    //                    {
-    //                    Service_Stop service = new Service_Stop();
-    //                    service.result = "false";
-    //                    service.message = "This Service is Temporary Unavailable";
+        if (CusID == "" || mobile_no == "" || operator_name == "" || circle_id == "" || amount2 == "" || balance == "")
+        {
+            Service_Stop service = new Service_Stop();
+            service.result = "false";
+            service.message = "Please enter all fields";
 
 
-    //                    string json = JsonConvert.SerializeObject(service);
-    //                    this.Context.Response.Write(json);
+            string json = JsonConvert.SerializeObject(service);
+            this.Context.Response.Write(json);
 
-    //                    }
-    //                }
-    //                else
-    //                {
-    //                    string status1 = "0";
-    //                    string ErrCode = "";
-    //                    string trID1 = "";
-    //                    string message1 = "";
-    //                    string ErrCode1 = "";
+        }
+        else
+        {
 
-    //                    SqlDataReader sdr = ConCls.GetdataReader("select max(AGENTID)+1 from mobile_log");
-    //                    if (sdr.HasRows)
-    //                    {
-    //                        if (sdr.Read())
-    //                        {
-    //                            string trID11 = sdr[0].ToString();
-    //                            //decimal trID111 = decimal.Parse(trID11);
-    //                            //decimal tr = trID111 + 1;
-    //                            //string tr1 = tr.ToString();
+            try
+            {
 
-    //                            ConCls.Walletbalance(CusID, amount2, balance, out message1, out ErrCode1);
+                SqlDataReader sdr3 = ConCls.GetdataReader("SELECT * FROM Config WHERE Permission=0 AND PageName='mobilerechargepost'");
+                if (sdr3.HasRows)
+                {
 
-    //                            if (message1 == "1")
-    //                            {
-    //                                string userid = "8452056444";
-    //                                string pass = "996581";
-    //                                string mob = mobile_no;
-    //                                string opt = operator_name;
-    //                                string agentid = trID11;
-    //                                // string circle = circle_id;
-    //                                string amt = amount2;
-    //                                string usertx = trID1;
-    //                                string fmt = "json";
-    //                                // string version = "4";
+                    if (sdr3.Read())
+                    {
+                        Service_Stop service = new Service_Stop();
+                        service.result = "false";
+                        service.message = "This Service is Temporary Unavailable";
 
 
-    //                                // Creating Parameters List
-    //                                NameValueCollection Parameterslist = System.Web.HttpUtility.ParseQueryString(string.Empty);
+                        string json = JsonConvert.SerializeObject(service);
+                        this.Context.Response.Write(json);
 
-    //                                Parameterslist["userid"] = userid.ToString();
-    //                                Parameterslist["pass"] = pass.ToString();
-    //                                Parameterslist["mob"] = mob.ToString();
-    //                                Parameterslist["opt"] = opt.ToString();
-    //                                Parameterslist["agentid"] = agentid.ToString();
-    //                                // Parameterslist["circle"] = circle.ToString();
-    //                                Parameterslist["amt"] = amt.ToString();
-    //                                Parameterslist["fmt"] = fmt.ToString();
-    //                                // Parameterslist["version"] = version.ToString();
+                    }
+                }
+                else
+                {
+                    string status1 = "0";
+                    string ErrCode = "";
+                    string trID1 = "";
+                    string message1 = "";
+                    string ErrCode1 = "";
 
-    //                                var link = "http://roundpayapi.in/API/APIService.aspx?" + Parameterslist.ToString();
+                    SqlDataReader sdr = ConCls.GetdataReader("select max(AGENTID)+1 from mobile_log");
+                    if (sdr.HasRows)
+                    {
+                        if (sdr.Read())
+                        {
+                            string trID11 = sdr[0].ToString();
+                            //decimal trID111 = decimal.Parse(trID11);
+                            //decimal tr = trID111 + 1;
+                            //string tr1 = tr.ToString();
 
-    //                                // Getting JSON Output
-    //                                WebClient c_euro = new WebClient();
-    //                                var data_euro = c_euro.DownloadString("http://roundpayapi.in/API/APIService.aspx?" + Parameterslist.ToString());
-    //                                //Console.WriteLine(data);
-    //                                JObject o_euro = JObject.Parse(data_euro);
+                            ConCls.Walletbalance(CusID, amount2, balance, out message1, out ErrCode1);
 
-    //                                // GEtting Values From JSON Data
-    //                                JObject jObj = (JObject)JsonConvert.DeserializeObject(o_euro.ToString());
-    //                                int countelement = jObj.Count;
-
-    //                                string txid = "";
-    //                                string user_txid = "";
-    //                                string status = "";
-    //                                string amount = "";
-    //                                string your_cost = "";
-    //                                //   string balancetest = "";
-    //                                string number = "";
-    //                                string operators = "";
-    //                                string operator_ref = "";
-    //                                string error_code = "";
-    //                                string message = "";
-    //                                string time = "";
-
-    //                                txid = o_euro["AGENTID"].ToString();
-    //                                user_txid = o_euro["RPID"].ToString();
-    //                                status = o_euro["STATUS"].ToString();
-    //                                amount = o_euro["AMOUNT"].ToString();
-    //                                your_cost = o_euro["BAL"].ToString();
-    //                                balance = o_euro["AMOUNT"].ToString();
-    //                                number = o_euro["MOBILE"].ToString();
-    //                                operators = o_euro["OPID"].ToString();
-    //                                //  operators = "ss";
-    //                                operator_ref = "ss";
-    //                                error_code = o_euro["MSG"].ToString();
-    //                                message = o_euro["OPID"].ToString();
-    //                                time = DateTime.Now.ToShortDateString();
-    //                                circle_id = "ss";
+                            if (message1 == "1")
+                            {
+                                string userid = "8452056444";
+                                string pass = "996581";
+                                string mob = mobile_no;
+                                string opt = operator_name;
+                                string agentid = trID11;
+                                // string circle = circle_id;
+                                string amt = amount2;
+                                string usertx = trID1;
+                                string fmt = "json";
+                                // string version = "4";
 
 
+                                // Creating Parameters List
+                                NameValueCollection Parameterslist = System.Web.HttpUtility.ParseQueryString(string.Empty);
 
-    //                                if (status == "PENDING" || status == "SUCCESS")
-    //                                {
-    //                                    ConCls.mobilerechargepost(CusID, mobile_no, operator_name, circle_id, your_cost, amount2, balance, txid, user_txid, status, number, operator_ref, error_code, message, time, out trID1, out status1, out ErrCode);
-    //                                    if (status1 == "1")
-    //                                    {
-    //                                    mobilerechargepretrue service = new mobilerechargepretrue();
-    //                                    service.txid = txid;
-    //                                    service.user_txid = user_txid;
-    //                                    service.status = status;
-    //                                    service.amount = amount;
-    //                                    service.your_cost = your_cost;
-    //                                    service.balance = balance;
-    //                                    service.number = number;
-    //                                    service.operators = operators;
-    //                                    service.operator_ref = operator_ref;
-    //                                    service.error_code = error_code;
-    //                                    service.message = message;
-    //                                    service.time = time;
+                                Parameterslist["userid"] = userid.ToString();
+                                Parameterslist["pass"] = pass.ToString();
+                                Parameterslist["mob"] = mob.ToString();
+                                Parameterslist["opt"] = opt.ToString();
+                                Parameterslist["agentid"] = agentid.ToString();
+                                // Parameterslist["circle"] = circle.ToString();
+                                Parameterslist["amt"] = amt.ToString();
+                                Parameterslist["fmt"] = fmt.ToString();
+                                // Parameterslist["version"] = version.ToString();
 
-    //                                    string json = JsonConvert.SerializeObject(service);
-    //                                    this.Context.Response.Write(json);
-    //                                    // mobilerechargepretrue(txid, user_txid, status, amount, your_cost, balance, number, operators, operator_ref, error_code, message, time);
-    //                                }
-    //                                    else
-    //                                    {
-    //                                    mobilerechargeprefalse service = new mobilerechargeprefalse();
-    //                                    service.txid = txid;
-    //                                    service.user_txid = user_txid;
-    //                                    service.status = status;
-    //                                    service.amount = amount;
-    //                                    service.your_cost = your_cost;
-    //                                    service.balance = balance;
-    //                                    service.number = number;
-    //                                    service.operators = operators;
-    //                                    service.operator_ref = operator_ref;
-    //                                    service.error_code = error_code;
-    //                                    service.message = message;
-    //                                    service.time = time;
+                                string link = "http://roundpayapi.in/API/APIService.aspx?" + Parameterslist.ToString();
 
-    //                                    string json = JsonConvert.SerializeObject(service);
-    //                                    this.Context.Response.Write(json);
-    //                                    // mobilerechargeprefalse(txid, user_txid, status, amount, your_cost, balance, number, operators, operator_ref, error_code, message, time);
-    //                                }
-    //                                }
-    //                                else if (status == "FAILED")
-    //                                {
-    //                                    ConCls.transactionfailpostmobile(CusID, mobile_no, operator_name, circle_id, your_cost, amount2, balance, txid, user_txid, status, number, operator_ref, error_code, message, time, out trID1, out status1, out ErrCode);
-    //                                // mobilerechargeprefalse(txid, user_txid, status, amount, your_cost, balance, number, operators, operator_ref, error_code, message, time);
-    //                                mobilerechargeprefalse service = new mobilerechargeprefalse();
-    //                                service.txid = txid;
-    //                                service.user_txid = user_txid;
-    //                                service.status = status;
-    //                                service.amount = amount;
-    //                                service.your_cost = your_cost;
-    //                                service.balance = balance;
-    //                                service.number = number;
-    //                                service.operators = operators;
-    //                                service.operator_ref = operator_ref;
-    //                                service.error_code = error_code;
-    //                                service.message = message;
-    //                                service.time = time;
+                                // Getting JSON Output
+                                WebClient c_euro = new WebClient();
+                                string data_euro = c_euro.DownloadString("http://roundpayapi.in/API/APIService.aspx?" + Parameterslist.ToString());
+                                //Console.WriteLine(data);
+                                JObject o_euro = JObject.Parse(data_euro);
 
-    //                                string json = JsonConvert.SerializeObject(service);
-    //                                this.Context.Response.Write(json);
-    //                            }
-    //                            }
-    //                        }
-    //                    }
-    //                    else
-    //                    {
-    //                        string txid = "";
-    //                        string user_txid = "";
-    //                        string status = "";
-    //                        string your_cost = "";
-    //                        string operator_ref = "";
-    //                        string error_code = ErrCode1;
-    //                        string message = ErrCode1;
-    //                        string time = "";
+                                // GEtting Values From JSON Data
+                                JObject jObj = (JObject)JsonConvert.DeserializeObject(o_euro.ToString());
+                                int countelement = jObj.Count;
 
-    //                        string number = mobile_no;
-    //                        string operators = operator_name;
-    //                        string circle = circle_id;
-    //                        string amount = amount2;
-    //                        string usertx = trID1;
+                                string txid = "";
+                                string user_txid = "";
+                                string status = "";
+                                string amount = "";
+                                string your_cost = "";
+                                //   string balancetest = "";
+                                string number = "";
+                                string operators = "";
+                                string operator_ref = "";
+                                string error_code = "";
+                                string message = "";
+                                string time = "";
 
-
-    //                    mobilerechargeprefalse service = new mobilerechargeprefalse();
-    //                    service.txid = txid;
-    //                    service.user_txid = user_txid;
-    //                    service.status = status;
-    //                    service.amount = amount;
-    //                    service.your_cost = your_cost;
-    //                    service.balance = balance;
-    //                    service.number = number;
-    //                    service.operators = operators;
-    //                    service.operator_ref = operator_ref;
-    //                    service.error_code = error_code;
-    //                    service.message = message;
-    //                    service.time = time;
-
-    //                    string json = JsonConvert.SerializeObject(service);
-    //                    this.Context.Response.Write(json);
-
-    //                    //    mobilerechargeprefalse(txid, user_txid, status, amount, your_cost, balance, number, operators, operator_ref, error_code, message, time);
-    //                    //InsufficiantBalance(ErrCode1);
-    //                }
-    //                }
-
-    //            }
-    //            catch (Exception ex)
-    //            {
-    //            Service_Stop service = new Service_Stop();
-    //            service.result = "false";
-    //            service.message = "Bad network connection. please try after some time";
-
-
-    //            string json = JsonConvert.SerializeObject(service);
-    //            this.Context.Response.Write(json);
-
-
-    //            }
-
-    //    }
-    //}
+                                txid = o_euro["AGENTID"].ToString();
+                                user_txid = o_euro["RPID"].ToString();
+                                status = o_euro["STATUS"].ToString();
+                                amount = o_euro["AMOUNT"].ToString();
+                                your_cost = o_euro["BAL"].ToString();
+                                balance = o_euro["AMOUNT"].ToString();
+                                number = o_euro["MOBILE"].ToString();
+                                operators = o_euro["OPID"].ToString();
+                                //  operators = "ss";
+                                operator_ref = "ss";
+                                error_code = o_euro["MSG"].ToString();
+                                message = o_euro["OPID"].ToString();
+                                time = DateTime.Now.ToShortDateString();
+                                circle_id = "ss";
 
 
 
-    //DTH recharge
+                                if (status == "PENDING" || status == "SUCCESS")
+                                {
+                                    ConCls.mobilerechargepost(CusID, mobile_no, operator_name, circle_id, your_cost, amount2, balance, txid, user_txid, status, number, operator_ref, error_code, message, time, out trID1, out status1, out ErrCode);
+                                    if (status1 == "1")
+                                    {
+                                        mobilerechargepretrue service = new mobilerechargepretrue();
+                                        service.txid = txid;
+                                        service.user_txid = user_txid;
+                                        service.status = status;
+                                        service.amount = amount;
+                                        service.your_cost = your_cost;
+                                        service.balance = balance;
+                                        service.number = number;
+                                        service.operators = operators;
+                                        service.operator_ref = operator_ref;
+                                        service.error_code = error_code;
+                                        service.message = message;
+                                        service.time = time;
+
+                                        string json = JsonConvert.SerializeObject(service);
+                                        this.Context.Response.Write(json);
+                                        // mobilerechargepretrue(txid, user_txid, status, amount, your_cost, balance, number, operators, operator_ref, error_code, message, time);
+                                    }
+                                    else
+                                    {
+                                        mobilerechargeprefalse service = new mobilerechargeprefalse();
+                                        service.txid = txid;
+                                        service.user_txid = user_txid;
+                                        service.status = status;
+                                        service.amount = amount;
+                                        service.your_cost = your_cost;
+                                        service.balance = balance;
+                                        service.number = number;
+                                        service.operators = operators;
+                                        service.operator_ref = operator_ref;
+                                        service.error_code = error_code;
+                                        service.message = message;
+                                        service.time = time;
+
+                                        string json = JsonConvert.SerializeObject(service);
+                                        this.Context.Response.Write(json);
+                                        // mobilerechargeprefalse(txid, user_txid, status, amount, your_cost, balance, number, operators, operator_ref, error_code, message, time);
+                                    }
+                                }
+                                else if (status == "FAILED")
+                                {
+                                    ConCls.transactionfailpostmobile(CusID, mobile_no, operator_name, circle_id, your_cost, amount2, balance, txid, user_txid, status, number, operator_ref, error_code, message, time, out trID1, out status1, out ErrCode);
+                                    // mobilerechargeprefalse(txid, user_txid, status, amount, your_cost, balance, number, operators, operator_ref, error_code, message, time);
+                                    mobilerechargeprefalse service = new mobilerechargeprefalse();
+                                    service.txid = txid;
+                                    service.user_txid = user_txid;
+                                    service.status = status;
+                                    service.amount = amount;
+                                    service.your_cost = your_cost;
+                                    service.balance = balance;
+                                    service.number = number;
+                                    service.operators = operators;
+                                    service.operator_ref = operator_ref;
+                                    service.error_code = error_code;
+                                    service.message = message;
+                                    service.time = time;
+
+                                    string json = JsonConvert.SerializeObject(service);
+                                    this.Context.Response.Write(json);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        string txid = "";
+                        string user_txid = "";
+                        string status = "";
+                        string your_cost = "";
+                        string operator_ref = "";
+                        string error_code = ErrCode1;
+                        string message = ErrCode1;
+                        string time = "";
+
+                        string number = mobile_no;
+                        string operators = operator_name;
+                        string circle = circle_id;
+                        string amount = amount2;
+                        string usertx = trID1;
+
+
+                        mobilerechargeprefalse service = new mobilerechargeprefalse();
+                        service.txid = txid;
+                        service.user_txid = user_txid;
+                        service.status = status;
+                        service.amount = amount;
+                        service.your_cost = your_cost;
+                        service.balance = balance;
+                        service.number = number;
+                        service.operators = operators;
+                        service.operator_ref = operator_ref;
+                        service.error_code = error_code;
+                        service.message = message;
+                        service.time = time;
+
+                        string json = JsonConvert.SerializeObject(service);
+                        this.Context.Response.Write(json);
+
+                        //    mobilerechargeprefalse(txid, user_txid, status, amount, your_cost, balance, number, operators, operator_ref, error_code, message, time);
+                        //InsufficiantBalance(ErrCode1);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Service_Stop service = new Service_Stop();
+                service.result = "false";
+                service.message = "Bad network connection. please try after some time";
+
+
+                string json = JsonConvert.SerializeObject(service);
+                this.Context.Response.Write(json);
+
+
+            }
+
+        }
+    }
+
+
+
+    #region DTH recharge
 
 
     [WebMethod]
@@ -2435,7 +2441,7 @@ public class smartdigital : System.Web.Services.WebService
 
         }
     }
-
+    #endregion
 
 
 
@@ -3338,7 +3344,7 @@ public class smartdigital : System.Web.Services.WebService
 
     #region WALLET_DETAILS
     [WebMethod]
-    public void WALLET_DETAILS(string CusID, string tokenno)
+    public void WALLET_DETAILS(string CusID)
     {
         try
         {
@@ -3358,7 +3364,7 @@ public class smartdigital : System.Web.Services.WebService
                             sda.Fill(dt);
 
                             string json = JsonConvert.SerializeObject(dt);
- //                           return dt;
+                            //                           return dt;
 
                             dynamic jsonResponse = JsonConvert.DeserializeObject(json);
 
@@ -3369,7 +3375,7 @@ public class smartdigital : System.Web.Services.WebService
                             new JProperty("Data", jarray));
 
                             string JsonString = jd.ToString();
- //                           string JsonString = "";
+                            //                           string JsonString = "";
 
                             this.Context.Response.Clear();
                             JsonString = JsonConvert.SerializeObject(jd).ToString();
@@ -3409,7 +3415,7 @@ public class smartdigital : System.Web.Services.WebService
 
     #region #STACKING_PACKAGE_HISTORY
     [WebMethod]
-    public void STACKING_PACKAGE_HISTORY(String CusID, string tokenno)
+    public void STACKING_PACKAGE_HISTORY(String CusID)
 
     {
         try
@@ -3433,7 +3439,7 @@ public class smartdigital : System.Web.Services.WebService
                                 sda.Fill(dt);
 
                                 string json = JsonConvert.SerializeObject(dt);
-  //                              return dt;
+                                //                              return dt;
 
                                 dynamic jsonResponse = JsonConvert.DeserializeObject(json);
 
@@ -3444,7 +3450,7 @@ public class smartdigital : System.Web.Services.WebService
                                 new JProperty("Data", jarray));
 
                                 string JsonString = jd.ToString();
- //                               string JsonString = "";
+                                //                               string JsonString = "";
 
                                 this.Context.Response.Clear();
                                 JsonString = JsonConvert.SerializeObject(jd).ToString();
@@ -3486,12 +3492,12 @@ public class smartdigital : System.Web.Services.WebService
 
     #region #LATEST_TRANSACTION_Dashboard
     [WebMethod]
-    public void LATEST_TRANSACTION(String CusID, string tokenno)
+    public void LATEST_TRANSACTION(String CusID)
 
     {
         try
         {
-            if (CusID != "" || tokenno != "")
+            if (CusID != "" )
             {
 
 
@@ -3570,46 +3576,51 @@ public class smartdigital : System.Web.Services.WebService
         {
             if (CusID != "")
             {
-                string constr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(constr))
-                {
-                    using (SqlCommand cmd = new SqlCommand("SELECT rqno, custid,  PtbWidrawRequest.status, RqAmount,AppAmount,DedAmount, reqDate, AdminStatus, ApprovedDate, AdminComments, WithdrawAddress, TFee,ModeType,tstatus,BTC_Amt,'BTC' AS Category,TxID,PTC_Amt,PTC_Rate FROM PtbWidrawRequest Where custid = " + CustID + " AND ModeType=1"))
+                   string constr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(constr))
                     {
-                        using (SqlDataAdapter sda = new SqlDataAdapter())
+                        using (SqlCommand cmd = new SqlCommand("SELECT rqno, custid,  PtbWidrawRequest.status, RqAmount,AppAmount,DedAmount, reqDate, AdminStatus, ApprovedDate, AdminComments, WithdrawAddress, TFee,ModeType,tstatus,BTC_Amt,'BTC' AS Category,TxID,PTC_Amt,PTC_Rate FROM PtbWidrawRequest Where custid = " + CustID + " AND ModeType=1"))
                         {
-                            cmd.Connection = con;
-                            sda.SelectCommand = cmd;
-                            using (DataTable dt = new DataTable())
+                            using (SqlDataAdapter sda = new SqlDataAdapter())
                             {
-                                dt.TableName = "PtbWidrawRequest";
-                                sda.Fill(dt);
+                                cmd.Connection = con;
+                                sda.SelectCommand = cmd;
+                                using (DataTable dt = new DataTable())
+                                {
+                                    dt.TableName = "PtbWidrawRequest";
+                                    sda.Fill(dt);
 
-                                string json = JsonConvert.SerializeObject(dt);
-                                //return dt;
+                                    string json = JsonConvert.SerializeObject(dt);
+                                    //return dt;
 
-                                dynamic jsonResponse = JsonConvert.DeserializeObject(json);
+                                    dynamic jsonResponse = JsonConvert.DeserializeObject(json);
 
-                                JArray jarray = new JArray(jsonResponse);
+                                    JArray jarray = new JArray(jsonResponse);
 
-                                JObject jd = new JObject(
-                                new JProperty("result", "true"),
-                                new JProperty("Data", jarray));
+                                    JObject r = new JObject(
+                                    new JProperty("result", "true"),
+                                    new JProperty("Data", jarray));
 
-                                string JsonString = jd.ToString();
-                                //  string JsonString = "";
+                                    string JsonString = r.ToString();
+                                    //  string JsonString = "";
 
-                                this.Context.Response.Clear();
-                                //JsonString = JsonConvert.SerializeObject(jd).ToString();
-                                this.Context.Response.ContentType = "application/json";
-                                this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
-                                this.Context.Response.Flush();
-                                this.Context.Response.Write(JsonString);
-                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                                    this.Context.Response.Clear();
+                                    //JsonString = JsonConvert.SerializeObject(jd).ToString();
+                                    this.Context.Response.ContentType = "application/json";
+                                    this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+                                    this.Context.Response.Flush();
+                                    this.Context.Response.Write(JsonString);
+                                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                                }
                             }
                         }
                     }
-                }
+                
+                JObject d = new JObject(
+                                new JProperty("result", "ERROR!! Please Enter Tokenno"));
             }
+            JObject jd = new JObject(
+                               new JProperty("result", "ERROR!! Please Enter Customer_ID"));
         }
         catch (Exception ex)
         {
@@ -3640,7 +3651,7 @@ public class smartdigital : System.Web.Services.WebService
 
     #region #STAKING_PACKAGE_HISTORY_Dashboard
     [WebMethod]
-    public void STAKING_PACKAGE_HISTORY(String CusID, string tokenno)
+    public void STAKING_PACKAGE_HISTORY(string CusID)
 
     {
         try
@@ -3717,12 +3728,12 @@ public class smartdigital : System.Web.Services.WebService
 
     #region #BUY_SHARE_PROFIT_STAKING_PACKAGE_HISTORY
     [WebMethod]
-    public void BUY_SHARE_PROFIT(String CusID,String linktable, string tokenno)
+    public void BUY_SHARE_PROFITHistory(string CusID, string linktable)
 
     {
         try
         {
-            if (CusID != "" || tokenno != "" || linktable != "")
+            if (CusID != "" || linktable != "")
             {
 
 
@@ -3792,91 +3803,15 @@ public class smartdigital : System.Web.Services.WebService
     }
     #endregion
 
-    #region #WITHDRAW_DETAILS   
-    [WebMethod]
-    public void WITHDRAW_DETAILS(String CusID, string tokenno)
-
-    {
-        try
-        {
-            if (CusID != "" || tokenno != "")
-            {
-
-
-                string constr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(constr))
-                {
-                    using (SqlCommand cmd = new SqlCommand("SELECT rqno, custid, dbo.CustRecords.Cust_UserName, status, RqAmount, AppAmount, DedAmount, reqDate, AdminStatus, ApprovedDate, AdminComments, WithdrawAddress, TFee, ModeType, tstatus, BTC_Amt FROM PtbWidrawRequest INNER JOIN CustRecords ON custid = CusID Where custid = " + CusID.ToString() + "  order by reqDate desc "))
-                    {
-                        using (SqlDataAdapter sda = new SqlDataAdapter())
-                        {
-                            cmd.Connection = con;
-                            sda.SelectCommand = cmd;
-                            using (DataTable dt = new DataTable())
-                            {
-                                dt.TableName = "CustRecords";
-                                sda.Fill(dt);
-
-                                string json = JsonConvert.SerializeObject(dt);
-                                //return dt;
-
-                                dynamic jsonResponse = JsonConvert.DeserializeObject(json);
-
-                                JArray jarray = new JArray(jsonResponse);
-
-                                JObject jd = new JObject(
-                                new JProperty("result", "true"),
-                                new JProperty("Data", jarray));
-
-                                string JsonString = jd.ToString();
-                                //  string JsonString = "";
-
-                                this.Context.Response.Clear();
-                                //JsonString = JsonConvert.SerializeObject(jd).ToString();
-                                this.Context.Response.ContentType = "application/json";
-                                this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
-                                this.Context.Response.Flush();
-                                this.Context.Response.Write(JsonString);
-                                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        catch (Exception ex)
-        {
-            JObject jd = new JObject();
-            jd.Add("result", "");
-            JObject val = jd;
-            string option = (string)val["result"];
-            string JsonString = "";
-
-            val = jd;
-            option = (string)val["result"];
-            val["result"] = "false";
-            val["message"] = "Bad network connection. please try after some time";
-
-            this.Context.Response.Clear();
-            JsonString = JsonConvert.SerializeObject(jd).ToString();
-            this.Context.Response.ContentType = "application/json";
-            this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
-            this.Context.Response.Flush();
-            this.Context.Response.Write(JsonString);
-            HttpContext.Current.ApplicationInstance.CompleteRequest();
-        }
-    }
-    #endregion
 
     #region #GET_TOTALINCOME     
     [WebMethod]
-    public void GET_TOTALINCOME(String CusID, string tokenno)
+    public void GET_TOTALINCOME(string CusID)
 
     {
         try
         {
-            if (CusID != "" || tokenno != "")
+            if (CusID != "" )
             {
 
 
@@ -3915,6 +3850,8 @@ public class smartdigital : System.Web.Services.WebService
                                 this.Context.Response.Flush();
                                 this.Context.Response.Write(JsonString);
                                 HttpContext.Current.ApplicationInstance.CompleteRequest();
+
+
                             }
                         }
                     }
@@ -3935,12 +3872,14 @@ public class smartdigital : System.Web.Services.WebService
             val["result"] = "false";
             val["message"] = "Bad network connection. please try after some time";
 
+
             this.Context.Response.Clear();
             JsonString = JsonConvert.SerializeObject(jd).ToString();
             this.Context.Response.ContentType = "application/json";
             this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
             this.Context.Response.Flush();
             this.Context.Response.Write(JsonString);
+            //          WriteToEventLog(jd.Message, EventLogEntryType.Error);
             HttpContext.Current.ApplicationInstance.CompleteRequest();
         }
     }
@@ -3948,12 +3887,12 @@ public class smartdigital : System.Web.Services.WebService
 
     #region #GET_WithdrawBalance     
     [WebMethod]
-    public void GET_WithdrawBalance(String CusID, string tokenno)
+    public void GET_WithdrawBalance(String CusID)
 
     {
         try
         {
-            if (CusID != "" || tokenno != "")
+            if (CusID != "" )
             {
 
 
@@ -4023,5 +3962,799 @@ public class smartdigital : System.Web.Services.WebService
     }
     #endregion
 
+    #region #WITHDRAW_HISTORY   
+    [WebMethod]
+    public void WITHDRAW_HISTORY(String CusID)
+
+    {
+        try
+        {
+            if (CusID != "" )
+            {
+
+
+                string constr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SELECT rqno, custid, dbo.CustRecords.Cust_UserName, status, RqAmount, AppAmount, DedAmount, reqDate, AdminStatus, ApprovedDate, AdminComments, WithdrawAddress, TFee, ModeType, tstatus, BTC_Amt FROM PtbWidrawRequest INNER JOIN CustRecords ON custid = CusID Where custid = " + CusID.ToString() + "  order by reqDate desc "))
+                    {
+                        using (SqlDataAdapter sda = new SqlDataAdapter())
+                        {
+                            cmd.Connection = con;
+                            sda.SelectCommand = cmd;
+                            using (DataTable dt = new DataTable())
+                            {
+                                dt.TableName = "CustRecords";
+                                sda.Fill(dt);
+
+                                string json = JsonConvert.SerializeObject(dt);
+                                //return dt;
+
+                                dynamic jsonResponse = JsonConvert.DeserializeObject(json);
+
+                                JArray jarray = new JArray(jsonResponse);
+
+                                JObject jd = new JObject(
+                                new JProperty("result", "true"),
+                                new JProperty("Data", jarray));
+
+                                string JsonString = jd.ToString();
+                                //  string JsonString = "";
+
+                                this.Context.Response.Clear();
+                                //JsonString = JsonConvert.SerializeObject(jd).ToString();
+                                this.Context.Response.ContentType = "application/json";
+                                this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+                                this.Context.Response.Flush();
+                                this.Context.Response.Write(JsonString);
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        catch (Exception ex)
+        {
+            JObject jd = new JObject();
+            jd.Add("result", "");
+            JObject val = jd;
+            string option = (string)val["result"];
+            string JsonString = "";
+
+            val = jd;
+            option = (string)val["result"];
+            val["result"] = "false";
+            val["message"] = "Bad network connection. please try after some time";
+
+            this.Context.Response.Clear();
+            JsonString = JsonConvert.SerializeObject(jd).ToString();
+            this.Context.Response.ContentType = "application/json";
+            this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+            this.Context.Response.Flush();
+            this.Context.Response.Write(JsonString);
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+        }
+    }
+    #endregion
+
+
+    #region #GET_WithdrawMatic     
+    [WebMethod]
+    public void GET_WithdrawMatic(String CusID)
+
+    {
+        try
+        {
+            if (CusID != "" )
+            {
+
+
+                string constr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SELECT rqno, custid, dbo.CustRecords.Cust_UserName, status, RqAmount,AppAmount,DedAmount, reqDate, AdminStatus, ApprovedDate, AdminComments, WithdrawAddress, TFee,ModeType,tstatus,BTC_Amt FROM PtbWidrawRequest INNER JOIN CustRecords ON custid = CusID Where custid=" + CusID.ToString() + "  order by reqDate desc"))
+                    {
+                        using (SqlDataAdapter sda = new SqlDataAdapter())
+                        {
+                            cmd.Connection = con;
+                            sda.SelectCommand = cmd;
+                            using (DataTable dt = new DataTable())
+                            {
+                                dt.TableName = "PtbWidrawRequest";
+                                sda.Fill(dt);
+
+                                string json = JsonConvert.SerializeObject(dt);
+                                //return dt;
+
+                                dynamic jsonResponse = JsonConvert.DeserializeObject(json);
+
+                                JArray jarray = new JArray(jsonResponse);
+
+                                JObject jd = new JObject(
+                                new JProperty("result", "true"),
+                                new JProperty("Data", jarray));
+
+                                string JsonString = jd.ToString();
+                                //  string JsonString = "";
+
+                                this.Context.Response.Clear();
+                                //JsonString = JsonConvert.SerializeObject(jd).ToString();
+                                this.Context.Response.ContentType = "application/json";
+                                this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+                                this.Context.Response.Flush();
+                                this.Context.Response.Write(JsonString);
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        catch (Exception ex)
+        {
+            JObject jd = new JObject();
+            jd.Add("result", "");
+            JObject val = jd;
+            string option = (string)val["result"];
+            string JsonString = "";
+
+            val = jd;
+            option = (string)val["result"];
+            val["result"] = "false";
+            val["message"] = "Bad network connection. please try after some time";
+
+            this.Context.Response.Clear();
+            JsonString = JsonConvert.SerializeObject(jd).ToString();
+            this.Context.Response.ContentType = "application/json";
+            this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+            this.Context.Response.Flush();
+            this.Context.Response.Write(JsonString);
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+        }
+    }
+    #endregion
+
+    #region #GET_LIQUIDITYINCOME     
+    [WebMethod]
+    public void GET_LIQUIDITYINCOME(String CusID)
+
+    {
+        try
+        {
+            if (CusID != "")
+            {
+
+
+                string constr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    using (SqlCommand cmd = new SqlCommand("select sum(credit) as Amt from e_wallet_mycoinwallet  where marketid=4 and  CustID=" + CusID))
+                    {
+                        using (SqlDataAdapter sda = new SqlDataAdapter())
+                        {
+                            cmd.Connection = con;
+                            sda.SelectCommand = cmd;
+                            using (DataTable dt = new DataTable())
+                            {
+                                dt.TableName = "e_wallet_mycoinwallet";
+                                sda.Fill(dt);
+
+                                string json = JsonConvert.SerializeObject(dt);
+                                //return dt;
+
+                                dynamic jsonResponse = JsonConvert.DeserializeObject(json);
+
+                                JArray jarray = new JArray(jsonResponse);
+
+                                JObject jd = new JObject(
+                                new JProperty("result", "true"),
+                                new JProperty("Data", jarray));
+
+                                string JsonString = jd.ToString();
+                                //  string JsonString = "";
+
+                                this.Context.Response.Clear();
+                                //JsonString = JsonConvert.SerializeObject(jd).ToString();
+                                this.Context.Response.ContentType = "application/json";
+                                this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+                                this.Context.Response.Flush();
+                                this.Context.Response.Write(JsonString);
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        catch (Exception ex)
+        {
+            JObject jd = new JObject();
+            jd.Add("result", "");
+            JObject val = jd;
+            string option = (string)val["result"];
+            string JsonString = "";
+
+            val = jd;
+            option = (string)val["result"];
+            val["result"] = "false";
+            val["message"] = "Bad network connection. please try after some time";
+
+            this.Context.Response.Clear();
+            JsonString = JsonConvert.SerializeObject(jd).ToString();
+            this.Context.Response.ContentType = "application/json";
+            this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+            this.Context.Response.Flush();
+            this.Context.Response.Write(JsonString);
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+        }
+    }
+    #endregion
+
+    #region #GET_MAINWALLETBAL     
+    [WebMethod]
+    public void GET_MAINWALLETBAL(String CusID)
+
+    {
+        try
+        {
+            if (CusID != "" )
+            {
+
+
+                string constr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    using (SqlCommand cmd = new SqlCommand("select sum(credit) as Amt from e_wallet_mycoinwallet  where marketid=3 and  CustID=" + CusID))
+                    {
+                        using (SqlDataAdapter sda = new SqlDataAdapter())
+                        {
+                            cmd.Connection = con;
+                            sda.SelectCommand = cmd;
+                            using (DataTable dt = new DataTable())
+                            {
+                                dt.TableName = "e_wallet_mycoinwallet";
+                                sda.Fill(dt);
+
+                                string json = JsonConvert.SerializeObject(dt);
+                                //return dt;
+
+                                dynamic jsonResponse = JsonConvert.DeserializeObject(json);
+
+                                JArray jarray = new JArray(jsonResponse);
+
+                                JObject jd = new JObject(
+                                new JProperty("result", "true"),
+                                new JProperty("Data", jarray));
+
+                                string JsonString = jd.ToString();
+                                //  string JsonString = "";
+
+                                this.Context.Response.Clear();
+                                //JsonString = JsonConvert.SerializeObject(jd).ToString();
+                                this.Context.Response.ContentType = "application/json";
+                                this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+                                this.Context.Response.Flush();
+                                this.Context.Response.Write(JsonString);
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        catch (Exception ex)
+        {
+            JObject jd = new JObject();
+            jd.Add("result", "");
+            JObject val = jd;
+            string option = (string)val["result"];
+            string JsonString = "";
+
+            val = jd;
+            option = (string)val["result"];
+            val["result"] = "false";
+            val["message"] = "Bad network connection. please try after some time";
+
+            this.Context.Response.Clear();
+            JsonString = JsonConvert.SerializeObject(jd).ToString();
+            this.Context.Response.ContentType = "application/json";
+            this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+            this.Context.Response.Flush();
+            this.Context.Response.Write(JsonString);
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+        }
+    }
+    #endregion
+
+    #region #GET_DEPOSITFUNDS     
+    [WebMethod]
+    public void GET_DEPOSITFUNDS(String CusID)
+
+    {
+        try
+        {
+
+
+            SqlConnection conc = new SqlConnection();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("tokencheck", conc);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "tokencheck";
+                cmd.Parameters.AddWithValue("@CusID", CusID);
+                cmd.Parameters.AddWithValue("@tokenno", tokenno);
+
+                conc.Open();
+
+                SqlParameter SqlParaErrCode = new SqlParameter("@message1", SqlDbType.VarChar, 500);
+                SqlParaErrCode.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(SqlParaErrCode).Value = 0;
+
+                SqlParameter SqlParaErrCode1 = new SqlParameter("@ErrCode1", SqlDbType.VarChar, 500);
+                SqlParaErrCode1.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(SqlParaErrCode1).Value = 0;
+
+                SqlParameter SqlParaflag = new SqlParameter("@flag", SqlDbType.VarChar, 500);
+                SqlParaflag.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(SqlParaflag).Value = 0;
+
+                if (conc.State == ConnectionState.Closed)
+                    conc.Open();
+                int value = cmd.ExecuteNonQuery();
+                message1 = (string)SqlParaErrCode.Value;
+                ErrCode = (string)SqlParaErrCode1.Value;
+                //                           errflag = (string)SqlParaflag.Value;
+
+                //                            return value;
+
+
+
+
+            }
+
+
+            catch (Exception ex)
+            {
+                message1 = "0";
+                //ErrCode1 = ex.Message;
+                //errflag = "0";
+                //return 0;
+            }
+            finally
+            {
+                conc.Close();
+            }
+
+
+
+
+            {
+                string constr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    using (SqlCommand cmd = new SqlCommand("select Top 10 TrID,dot,credit,Debit,description  from e_wallet_mycoinwallet where marketid=3 and  CustID=" + CusID.ToString() + " order by dot desc"))
+                    {
+                        using (SqlDataAdapter sda = new SqlDataAdapter())
+                        {
+                            cmd.Connection = con;
+                            sda.SelectCommand = cmd;
+                            using (DataTable dt = new DataTable())
+                            {
+                                dt.TableName = "e_wallet_mycoinwallet";
+                                sda.Fill(dt);
+
+                                string json = JsonConvert.SerializeObject(dt);
+                                //return dt;
+
+                                dynamic jsonResponse = JsonConvert.DeserializeObject(json);
+
+                                JArray jarray = new JArray(jsonResponse);
+
+                                JObject d = new JObject(
+                                new JProperty("result", "true"),
+                                new JProperty("Data", jarray));
+
+                                string JsonString = d.ToString();
+                                //  string JsonString = "";
+
+
+                                this.Context.Response.Clear();
+                                //JsonString = JsonConvert.SerializeObject(jd).ToString();
+                                this.Context.Response.ContentType = "application/json";
+
+                                this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+                                this.Context.Response.Flush();
+                                this.Context.Response.Write(JsonString);
+
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                                Context.Response.End();
+                            }
+                        }
+                    }
+                }
+            }
+            
+        
+            
+            JObject j = new JObject(
+                                new JProperty("result", "Please Enter Correct Customer_ID !"));
+
+
+        }
+
+        catch (Exception ex)
+        {
+            JObject jd = new JObject();
+            jd.Add("result", "");
+            JObject val = jd;
+            string option = (string)val["result"];
+            string JsonString = "";
+
+            val = jd;
+            option = (string)val["result"];
+            val["result"] = "false";
+            val["message"] = "Bad network connection. please try after some time";
+
+            this.Context.Response.Clear();
+            JsonString = JsonConvert.SerializeObject(jd).ToString();
+            this.Context.Response.ContentType = "application/json";
+            this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+            this.Context.Response.Flush();
+            this.Context.Response.Write(JsonString);
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+
+        }
+    }
+
+    #endregion
+
+
+    #region #Get_TeamSummary
+    [WebMethod]
+    public void Get_TeamSummary_Dashboard(string CusID, string tokenno)
+
+    {
+        if (CusID != "" )
+        {
+            if (tokenno != "")
+            {
+                SqlConnection conc = new SqlConnection();
+                try
+                {
+                    SqlCommand cmd = new SqlCommand("tokencheck", conc);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "tokencheck";
+                    cmd.Parameters.AddWithValue("@CusID", CusID);
+                    cmd.Parameters.AddWithValue("@tokenno", tokenno);
+
+                    conc.Open();
+
+                    SqlParameter SqlParaErrCode = new SqlParameter("@message1", SqlDbType.VarChar, 500);
+                    SqlParaErrCode.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(SqlParaErrCode).Value = 0;
+
+                    SqlParameter SqlParaErrCode1 = new SqlParameter("@ErrCode1", SqlDbType.VarChar, 500);
+                    SqlParaErrCode1.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(SqlParaErrCode1).Value = 0;
+
+                    SqlParameter SqlParaflag = new SqlParameter("@flag", SqlDbType.VarChar, 500);
+                    SqlParaflag.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(SqlParaflag).Value = 0;
+
+                    if (conc.State == ConnectionState.Closed)
+                        conc.Open();
+                    int value = cmd.ExecuteNonQuery();
+                    message1 = (string)SqlParaErrCode.Value;
+                    ErrCode = (string)SqlParaErrCode1.Value;
+                    //                           errflag = (string)SqlParaflag.Value;
+
+                    //                            return value;
+
+
+
+
+                }
+
+
+                catch (Exception ex)
+                {
+                    message1 = "0";
+                    //ErrCode1 = ex.Message;
+                    //errflag = "0";
+                    //return 0;
+                }
+                finally
+                {
+                    conc.Close();
+                }
+
+            }
+
+
+            string constr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                using (SqlCommand cmd = new SqlCommand("Select ISNULL(SUM(Credit),0) AS Amt from investment_profit  where CustID=" + CusID.ToString()))
+                {
+
+
+                    using (SqlDataAdapter sda = new SqlDataAdapter())
+                    {
+                        cmd.Connection = con;
+                        sda.SelectCommand = cmd;
+                        using (DataTable dt = new DataTable())
+                        {
+                            dt.TableName = "investment_profit";
+                            sda.Fill(dt);
+
+                            string json = JsonConvert.SerializeObject(dt);
+                            //return dt;
+
+                            dynamic jsonResponse = JsonConvert.DeserializeObject(json);
+
+                            JArray jarray = new JArray(jsonResponse);
+
+                            JObject jd = new JObject(
+                            new JProperty("result", "true"),
+                            new JProperty("Data", jarray),
+                            new JProperty("Status", "200-OK")
+                            );
+
+                            string JsonString = jd.ToString();
+                            //  string JsonString = "";
+
+                            this.Context.Response.Clear();
+                            JsonString = JsonConvert.SerializeObject(jd).ToString();
+                            this.Context.Response.ContentType = "application/json";
+                            this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+                            this.Context.Response.Flush();
+                            this.Context.Response.Write(JsonString);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+    }
+    #endregion
+
+    //#region #GET_MiningReward
+    //[WebMethod]
+    //public void GET_MiningReward(string CusID, string tokenno)
+
+    //{
+    //    if (CusID != "" || tokenno != "")
+    //    {
+
+
+    //        string constr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+    //        using (SqlConnection con = new SqlConnection(constr))
+    //        {
+    //            using (SqlCommand cmd = new SqlCommand("Select ISNULL(SUM(Credit),0) AS Amt from investment_profit where CustID=" + Session["UserID"].ToString()))
+
+
+    //            using (SqlDataAdapter sda = new SqlDataAdapter())
+    //            {
+    //                cmd.Connection = con;
+    //                sda.SelectCommand = cmd;
+    //                using (DataTable dt = new DataTable())
+    //                {
+    //                    dt.TableName = "investment_profit";
+    //                    sda.Fill(dt);
+
+    //                    string json = JsonConvert.SerializeObject(dt);
+    //                    //return dt;
+
+    //                    dynamic jsonResponse = JsonConvert.DeserializeObject(json);
+
+    //                    JArray jarray = new JArray(jsonResponse);
+
+    //                    JObject jd = new JObject(
+    //                    new JProperty("result", "true"),
+    //                    new JProperty("Data", jarray),
+    //                    new JProperty("Status", "200-OK")
+    //                    );
+
+    //                    string JsonString = jd.ToString();
+    //                    //  string JsonString = "";
+
+    //                    this.Context.Response.Clear();
+    //                    //JsonString = JsonConvert.SerializeObject(jd).ToString();
+    //                    this.Context.Response.ContentType = "application/json";
+    //                    this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+    //                    this.Context.Response.Flush();
+    //                    this.Context.Response.Write(JsonString);
+    //                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+    //                }
+    //            }
+
+    //        }
+
+    //    }
+
+    //}
+    //#endregion
+
+    #region #GETFastStartBonus-Dashboard     
+    [WebMethod]
+    public void GETFastStartBonus(string CusID, string tokenno)
+
+    {
+        try
+        {
+            if (CusID != "")
+            {
+                if (tokenno != "")
+                {
+                    SqlConnection conc = new SqlConnection();
+                    try
+                    {
+                        SqlCommand cmd = new SqlCommand("tokencheck", conc);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "tokencheck";
+                        cmd.Parameters.AddWithValue("@CusID", CusID);
+                        cmd.Parameters.AddWithValue("@tokenno", tokenno);
+
+                        conc.Open();
+
+                        SqlParameter SqlParaErrCode = new SqlParameter("@message1", SqlDbType.VarChar, 500);
+                        SqlParaErrCode.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(SqlParaErrCode).Value = 0;
+
+                        SqlParameter SqlParaErrCode1 = new SqlParameter("@ErrCode1", SqlDbType.VarChar, 500);
+                        SqlParaErrCode1.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(SqlParaErrCode1).Value = 0;
+
+                        SqlParameter SqlParaflag = new SqlParameter("@flag", SqlDbType.VarChar, 500);
+                        SqlParaflag.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(SqlParaflag).Value = 0;
+
+                        if (conc.State == ConnectionState.Closed)
+                            conc.Open();
+                        int value = cmd.ExecuteNonQuery();
+                        message1 = (string)SqlParaErrCode.Value;
+                        ErrCode = (string)SqlParaErrCode1.Value;
+                        //                           errflag = (string)SqlParaflag.Value;
+
+                        //                            return value;
+
+
+
+
+                    }
+
+
+                    catch (Exception ex)
+                    {
+                        message1 = "0";
+                        //ErrCode1 = ex.Message;
+                        //errflag = "0";
+                        //return 0;
+                    }
+                    finally
+                    {
+                        conc.Close();
+                    }
+
+                }
+
+
+
+
+                string constr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    using (SqlCommand cmd = new SqlCommand("Select top 1 purdate as purdate from investment_roi_monthly where CusID = " + CusID.ToString() + " order by serialno asc"))
+                    {
+                        using (SqlDataAdapter sda = new SqlDataAdapter())
+                        {
+                            cmd.Connection = con;
+                            sda.SelectCommand = cmd;
+                            using (DataTable dt = new DataTable())
+                            {
+                                dt.TableName = "investment_roi_monthly";
+                                sda.Fill(dt);
+                                string json = JsonConvert.SerializeObject(dt);
+                                //return dt;
+
+                                dynamic jsonResponse = JsonConvert.DeserializeObject(json);
+
+                                JArray jarray = new JArray(jsonResponse);
+
+                                JObject jd = new JObject(
+                                new JProperty("result", "true"),
+                                new JProperty("Data", jarray));
+
+                                string JsonString = jd.ToString();
+
+                                this.Context.Response.Clear();
+                                // JsonString = JsonConvert.SerializeObject(dt).ToString();
+                                this.Context.Response.ContentType = "application/json";
+                                this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+                                this.Context.Response.Flush();
+                                this.Context.Response.Write(JsonString);
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        catch (Exception ex)
+        {
+            JObject jd = new JObject();
+            jd.Add("result", "");
+            JObject val = jd;
+            string option = (string)val["result"];
+            string JsonString = "";
+
+            val = jd;
+            option = (string)val["result"];
+            val["result"] = "false";
+            val["message"] = "Bad network connection. please try after some time";
+
+            this.Context.Response.Clear();
+            JsonString = JsonConvert.SerializeObject(jd).ToString();
+            this.Context.Response.ContentType = "application/json";
+            this.Context.Response.AddHeader("content-length", JsonString.Length.ToString());
+            this.Context.Response.Flush();
+            this.Context.Response.Write(JsonString);
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+        }
+    }
+    #endregion
+
+    #region verification_byregistration
+
+    public int verification_byregistration(string cusid, out int NewID, out string ErrCode)
+    {
+        SqlConnection conc = new SqlConnection(ConnectionString1);
+        try
+        {
+            SqlCommand cmd = new SqlCommand("[dbo].[InsertNewMember_kalmanserve_alinkver]", conc);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@cusid", cusid));
+
+            SqlParameter SqlParaNewID = new SqlParameter("@NewID", SqlDbType.Int);
+            SqlParaNewID.Direction = ParameterDirection.Output;
+            cmd.Parameters.Add(SqlParaNewID).Value = 0;
+
+            SqlParameter SqlParaErrMsg = new SqlParameter("@ErrCode", SqlDbType.VarChar, 500);
+            SqlParaErrMsg.Direction = ParameterDirection.Output;
+            cmd.Parameters.Add(SqlParaErrMsg).Value = "TRY";
+
+            if (conc.State == ConnectionState.Closed)
+                conc.Open();
+            int value = cmd.ExecuteNonQuery();
+            NewID = (int)SqlParaNewID.Value;
+            ErrCode = Convert.ToString(SqlParaErrMsg.Value);
+            return value;
+        }
+        catch (Exception ex)
+        {
+            NewID = 0;
+            ErrCode = ex.Message;
+            return 0;
+        }
+        finally
+        {
+            conc.Close();
+        }
+
+    }
+
+    #endregion
 
 }
+
+
+
